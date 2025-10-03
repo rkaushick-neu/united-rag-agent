@@ -12,8 +12,3 @@ class Document(ABC):
     def extract_text(self) -> str:
         """Extract raw text (or Markdown) from the document."""
         pass
-
-    @abstractmethod
-    def chunk_text(self, max_tokens: int = 500) -> List[Dict[str, Any]]:
-        """Split document into chunks with metadata for indexing."""
-        pass

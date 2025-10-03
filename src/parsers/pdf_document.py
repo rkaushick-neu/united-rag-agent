@@ -136,30 +136,7 @@ class PDFDocument(Document):
         with open(file_path, "r", encoding="utf-8") as f:
             self.text = f.read()
 
-    def chunk_text(self, file_data: bytes, max_tokens: int = 500) -> List[Dict[str, Any]]:
-        """Split Markdown into chunks (by sections/headings)."""
-        if self.text is None:
-            self.extract_text(file_data)
-        
-        sections = re.split(r"(#+ .*)", self.text)  # split on Markdown headings
-        chunks = []
-        
-        for i, section in enumerate(sections):
-            if not section.strip():
-                continue
-            chunk = {
-                "chunk_id": f"{self.doc_id}-{i}",
-                "doc_id": self.doc_id,
-                "section_title": section.split("\n")[0][:50],
-                "content": section,
-                "metadata": self.metadata
-            }
-            chunks.append(chunk)
-        
-        return chunks
-
 if __name__ == "__main__":
-
     # verify that it is indeed a pdf file
     location = "/Users/rishabhkaushick/Documents/Northeastern/CSYE7230/Papers/Billion-scale similarity search with GPUs.pdf"
     print(f"Reading the PDF at location: {location} ...")
@@ -167,7 +144,6 @@ if __name__ == "__main__":
     pdf_document.extract_text()
     print(f"Extracted text from {pdf_document.name} PDF file.")
     print(f"OPTIONAL: Saved the markdown file to ./docs/{pdf_document.name}.md")
-
 
 else:
     # this means it is being imported as a module
