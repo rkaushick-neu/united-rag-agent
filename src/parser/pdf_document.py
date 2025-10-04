@@ -1,7 +1,7 @@
-import requests
-import re
+# import requests
+# import re
 import os
-import json
+# import json
 from dotenv import load_dotenv
 from typing import List, Dict, Any
 from pathlib import Path
@@ -9,13 +9,8 @@ from mistralai import Mistral, DocumentURLChunk
 from base_document import Document
 
 class PDFDocument(Document):
-    def __init__(self, location: str):
-        # validating that the location is a pdf
-        if location[-3:] != "pdf":
-            raise ValueError(f"Document {location} is not a PDF.")
-        doc_file = Path(location)
-        assert doc_file.is_file()
-
+    def __init__(self, file_path: str):
+        doc_file = Path(file_path)
         self.type = "pdf"
         self.bytes = doc_file.read_bytes()
         self.text = None # this will include the markdown text
@@ -136,15 +131,10 @@ class PDFDocument(Document):
         with open(file_path, "r", encoding="utf-8") as f:
             self.text = f.read()
 
-if __name__ == "__main__":
-    # verify that it is indeed a pdf file
-    location = "/Users/rishabhkaushick/Documents/Northeastern/CSYE7230/Papers/Billion-scale similarity search with GPUs.pdf"
-    print(f"Reading the PDF at location: {location} ...")
-    pdf_document = PDFDocument(location=location)
+if __name__ == "__main__":    
+    file_path = "/Users/rishabhkaushick/Documents/Northeastern/CSYE7230/Papers/Billion-scale similarity search with GPUs.pdf"
+    print(f"Reading the PDF at file_path: {file_path} ...")
+    pdf_document = PDFDocument(file_path=file_path)
     pdf_document.extract_text()
     print(f"Extracted text from {pdf_document.name} PDF file.")
     print(f"OPTIONAL: Saved the markdown file to ./docs/{pdf_document.name}.md")
-
-else:
-    # this means it is being imported as a module
-    print("This file is being imported as a module")
