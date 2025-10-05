@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from typing import List, Dict, Any
 from pathlib import Path
 from mistralai import Mistral, DocumentURLChunk
-from base_document import Document
+from src.parser.base_document import Document
 
 class PDFDocument(Document):
     def __init__(self, file_path: str):

@@ -1,4 +1,4 @@
-from pdf_document import PDFDocument
+from src.parser.pdf_document import PDFDocument
 from typing import List
 from pathlib import Path
 import argparse
